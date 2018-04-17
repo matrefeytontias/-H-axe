@@ -68,6 +68,7 @@ enum Tokens
     ///
     /// Misc
     ///
+    TDot;
     TColon;
     TLPar;
     TRPar;
@@ -122,6 +123,7 @@ class Rules
         Pair(~/\]/, (s:String) -> return TRSquareBracket),
         Pair(~/{/, (s:String) -> return TLBracket),
         Pair(~/}/, (s:String) -> return TRBracket),
+        Pair(~/\./, (s:String) -> return TDot),
         Pair(~/:/, (s:String) -> return TColon),
         Pair(~/\(/, (s:String) -> return TLPar),
         Pair(~/\)/, (s:String) -> return TRPar)

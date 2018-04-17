@@ -1,3 +1,4 @@
+using Lambda;
 using StringTools;
 
 enum _Pair<L, R>
@@ -11,8 +12,13 @@ class Lexer
     {
         var r = new Array<T>();
         
-        // First, replace newlines with colons
-        s = s.replace(String.fromCharCode(10), ":");
+        // First, add colons to newlines and get rid of \r's
+        s = s.replace("\n", "\n:")
+             .replace(String.fromCharCode(13), "");
+        
+        // Then, get rid of comments
+        var lines = s.split("\n:");
+        s = lines.filter((s:String) -> s.charAt(0) != ".").join("");
         
         while((s = s.ltrim()) != "")
         {
