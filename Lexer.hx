@@ -18,7 +18,7 @@ class Lexer
         
         // Then, get rid of comments
         var lines = s.split("\n:");
-        s = lines.filter((s:String) -> s.charAt(0) != ".").join("");
+        s = lines.filter((s:String) -> s.charAt(0) != ".").join(":");
         
         while((s = s.ltrim()) != "")
         {
