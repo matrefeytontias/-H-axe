@@ -26,7 +26,6 @@ enum Tokens
     TIntConst(val:Int);
     TDegree;
     TArrow;
-    TCharConst(val:Int);
     ///
     /// Math
     ///
@@ -92,7 +91,7 @@ class Rules
         Pair(~/0|[1-9][0-9]*/, (s:String) -> return TIntConst(Std.parseInt(s))),
         Pair(~/°/, (s:String) -> return TDegree),
         Pair(~/->/, (s:String) -> return TArrow),
-        Pair(~/'.'/, (s:String) -> return TCharConst(s.charCodeAt(1))),
+        Pair(~/'.'/, (s:String) -> return TIntConst(s.charCodeAt(1))),
         Pair(~/\+/, (s:String) -> return TPlus),
         Pair(~/-/, (s:String) -> return TMinus),
         Pair(~/\*/, (s:String) -> return TTimes),
