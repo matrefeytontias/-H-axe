@@ -6,7 +6,7 @@ enum _Pair<L, R>
     Pair(left:L, right:R);
 }
 
-class Lexer
+class Parser
 {
     static public function parse<T : EnumValue>(s:String, rules:Array<_Pair<EReg, String -> T>>) : Array<T>
     {

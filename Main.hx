@@ -11,7 +11,7 @@ class Main
         }
         else
         {
-            trace(Lexer.parse(args[0] == "-" ? Sys.stdin().readAll().toString() : sys.io.File.getContent(args[0]), Rules.rules));
+            trace(Parser.parse(args[0] == "-" ? Sys.stdin().readAll().toString() : sys.io.File.getContent(args[0]), Rules.rules));
         }
     }
 }

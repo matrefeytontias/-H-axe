@@ -1,4 +1,4 @@
-import Lexer;
+import Parser;
 
 enum Tokens
 {
