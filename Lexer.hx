@@ -1,3 +1,4 @@
+import haxe.ds.GenericStack;
 import haxe.io.Bytes;
 
 import Rules;
@@ -27,6 +28,16 @@ class Lexer
      * Accumulation register 2.
      */
     private var de:Int;
+    
+    /**
+     * Program counter, ie offset in the stream of tokens to the next instruction.
+     */
+    private var pc:Int;
+    
+    /**
+     * PC stack. Meant to hold the return addresses of function calls.
+     */
+    private var pcStack:GenericStack<Int> = new GenericStack();
     
     static public function execute(input:Array<Tokens>)
     {
