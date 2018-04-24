@@ -1,4 +1,7 @@
-import Parser;
+enum _Pair<L, R>
+{
+    Pair(left:L, right:R);
+}
 
 enum Tokens
 {

@@ -1,10 +1,7 @@
+import Rules;
+
 using Lambda;
 using StringTools;
-
-enum _Pair<L, R>
-{
-    Pair(left:L, right:R);
-}
 
 class Parser
 {
