@@ -13,10 +13,10 @@ class Main
         }
         else
         {
-            var tokens = Parser.parse(args[0] == "-" ? Sys.stdin().readAll().toString() : sys.io.File.getContent(args[0]), Rules.rules);
+            var tokens = Lexer.parse(args[0] == "-" ? Sys.stdin().readAll().toString() : sys.io.File.getContent(args[0]), Rules.rules);
             trace(tokens);
-            var lexer = new Lexer<Tokens, Node>();
-            var ast = lexer.buildAST(tokens, Grammar.rules, Grammar.startingRule);
+            var parser = new Parser<Tokens, Node>();
+            var ast = parser.buildAST(tokens, Grammar.rules, Grammar.startingRule);
             trace(ast);
         }
     }

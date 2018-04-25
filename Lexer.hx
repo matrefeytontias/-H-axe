@@ -1,30 +1,57 @@
-import haxe.Constraints;
-import haxe.ds.GenericStack;
-import haxe.io.Bytes;
-
 import Rules;
 
-using ArrayExtender;
+using Lambda;
+using StringTools;
 
-/**
- * Builds an AST out of a stream of tokens.
- */
-class Lexer<T:EnumValue, N>
+class Lexer
 {
     /**
-     * Holds past parsed values.
+     * Separates a string into tokens as dictated by a set of rules. The order
+     * that the rules are defined in matters as they will be tested from top to
+     * bottom !
      */
-    private var parseStack = new Array<N>();
-    
-    public function new() { }
+    static public function parse<T : EnumValue>(s:String, rules:Array<_Pair<EReg, String -> T>>) : Array<T>
+    {
+        var r = new Array<T>();
+        
+        // First, add colons to newlines and get rid of \r's
+        s = s.replace("\n", "\n:")
+             .replace(String.fromCharCode(13), "");
+        
+        // Then, get rid of comments
+        var lines = s.split("\n:");
+        s = lines.filter((s:String) -> s.charAt(0) != ".").join(":");
+        
+        while((s = s.ltrim()) != "")
+        {
+            var matched = false;
+            for(rule in rules)
+            {
+                switch(rule)
+                {
+                case Pair(reg, fun):
+                    if(reg.match(s) && reg.matchedPos().pos == 0)
+                    {
+                        r.push(fun(reg.matched(0)));
+                        s = reg.matchedRight();
+                        matched = true;
+                        break;
+                    }
+                }
+            }
+            if(!matched)
+                throw "Could not parse : '" + s + "'";
+        }
+        
+        return r;
+    }
     
     /**
-    * Applies a context-free grammar to a stream of tokens.
+     * Returns whether a given character in a string is alpha-numeric or not.
      */
-    public function buildAST(input:Array<T>, rules:Map<String, ParsingRule<N>>, startingRule:String) : N
+    static public function isAlphaNum(s:String, index:Int) : Bool
     {
-        parseStack.clear();
-        
-        return null;
+        var c = s.toUpperCase().charCodeAt(index);
+        return (c >= 48 && c <= 57) || (c >= 65 && c <= 90);
     }
 }
