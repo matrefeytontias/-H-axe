@@ -166,8 +166,8 @@ typedef ParsingRule<T> = Array<_Pair<Array<String>, Array<Any> -> T>>;
  */
 class Grammar
 {
-    var startingRule = "line";
-    var rules:Map<String, ParsingRule<Node>> = [
+    static public var startingRule = "line";
+    static public var rules:Map<String, ParsingRule<Node>> = [
         "line" => [
             Pair(["TColon"], (a:Array<Any>) -> null),
             Pair(["expr", "TColon"], (a:Array<Any>) -> a[0])

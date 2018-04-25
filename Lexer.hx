@@ -19,9 +19,9 @@ class Lexer<T:EnumValue, N>
     public function new() { }
     
     /**
-     *
+    * Applies a context-free grammar to a stream of tokens.
      */
-    public function buildAST(input:Array<T>, rules:Map<String, ParsingRule<N>>) : N
+    public function buildAST(input:Array<T>, rules:Map<String, ParsingRule<N>>, startingRule:String) : N
     {
         parseStack.clear();
         

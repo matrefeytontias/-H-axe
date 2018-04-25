@@ -1,3 +1,5 @@
+import Rules;
+
 class Main
 {
     static function main()
@@ -11,7 +13,11 @@ class Main
         }
         else
         {
-            trace(Parser.parse(args[0] == "-" ? Sys.stdin().readAll().toString() : sys.io.File.getContent(args[0]), Rules.rules));
+            var tokens = Parser.parse(args[0] == "-" ? Sys.stdin().readAll().toString() : sys.io.File.getContent(args[0]), Rules.rules);
+            trace(tokens);
+            var lexer = new Lexer<Tokens, Node>();
+            var ast = lexer.buildAST(tokens, Grammar.rules, Grammar.startingRule);
+            trace(ast);
         }
     }
 }
