@@ -23,7 +23,7 @@ class Lexer<T:EnumValue, N>
      */
     public function buildAST(input:Array<T>, rules:Map<String, ParsingRule<N>>) : N
     {
-        parseStack.pop();
+        parseStack.clear();
         
         return null;
     }
