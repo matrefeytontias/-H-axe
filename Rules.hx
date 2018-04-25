@@ -3,6 +3,9 @@ enum _Pair<L, R>
     Pair(left:L, right:R);
 }
 
+/**
+ * Tokens of the Axe language.
+ */
 enum Tokens
 {
     ///
@@ -25,7 +28,7 @@ enum Tokens
     ///
     /// Variables
     ///
-    TIdent(name:String);
+    TIdent(val:String);
     TIntConst(val:Int);
     TDegree;
     TArrow;
@@ -76,6 +79,9 @@ enum Tokens
     TRPar;
 }
 
+/**
+ * Parsing rules of the Axe language.
+ */
 class Rules
 {
     static public var rules = [
@@ -128,5 +134,48 @@ class Rules
         Pair(~/:/, (s:String) -> TColon),
         Pair(~/\(/, (s:String) -> TLPar),
         Pair(~/\)/, (s:String) -> TRPar)
+    ];
+}
+
+/**
+ * Nodes of the Axe AST tree.
+ * TODO
+ */
+enum Node
+{
+    NIntConst(val:Int);
+    NBinOp(lhs:Node, op:BinOp, rhs:Node);
+}
+
+enum BinOp
+{
+    BOPlus;
+    BOMinus;
+    BOMult;
+    BODiv;
+}
+
+/**
+ * Typedef for a rule that produces objects of type T in a context-free grammar.
+ */
+typedef ParsingRule<T> = Array<_Pair<Array<String>, Array<Any> -> T>>;
+
+/**
+ * Rules of the Axe grammar.
+ * TODO
+ */
+class Grammar
+{
+    var startingRule = "line";
+    var rules:Map<String, ParsingRule<Node>> = [
+        "line" => [
+            Pair(["TColon"], (a:Array<Any>) -> null),
+            Pair(["expr", "TColon"], (a:Array<Any>) -> a[0])
+        ],
+        "expr" => [
+            Pair(["TIntConst"], (a:Array<Any>) -> NIntConst(a[0])),
+            Pair(["expr", "TPlus", "expr"], (a:Array<Any>) -> NBinOp(a[0], BOPlus, a[2])),
+            Pair(["expr", "TMinus", "expr"], (a:Array<Any>) -> NBinOp(a[0], BOMinus, a[2])),
+        ]
     ];
 }

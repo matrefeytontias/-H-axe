@@ -1,5 +1,10 @@
 class ArrayExtender
 {
+    inline static public function clear<T>(array:Array<T>)
+    {
+        while(array.pop() != null);
+    }
+    
     static public function startsWith<T>(array:Array<T>, test:Array<T>) : Bool
     {
         if(test.length <= array.length)
