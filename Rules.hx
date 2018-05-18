@@ -168,14 +168,22 @@ class Grammar
 {
     static public var startingRule = "line";
     static public var rules:Map<String, ParsingRule<Node>> = [
+    /*
         "line" => [
             Pair(["TColon"], (a:Array<Any>) -> null),
-            Pair(["expr", "TColon"], (a:Array<Any>) -> a[0])
+            Pair(["expr", "TColon"], (a:Array<Any>) -> a[0]),
+            Pair(["expr"], (a:Array<Any>) -> a[0])
         ],
         "expr" => [
             Pair(["TIntConst"], (a:Array<Any>) -> NIntConst(a[0])),
             Pair(["expr", "TPlus", "expr"], (a:Array<Any>) -> NBinOp(a[0], BOPlus, a[2])),
-            Pair(["expr", "TMinus", "expr"], (a:Array<Any>) -> NBinOp(a[0], BOMinus, a[2])),
+            Pair(["expr", "TMinus", "expr"], (a:Array<Any>) -> NBinOp(a[0], BOMinus, a[2]))
+        ]
+    */
+        "line" => [
+            Pair(["TColon"], (a:Array<Any>) -> null),
+            Pair(["TIntConst", "TPlus", "TIntConst", "TColon"], (a:Array<Any>) -> NBinOp(a[0], BOPlus, a[2])),
+            Pair(["TIntConst", "TMinus", "TIntConst", "TColon"], (a:Array<Any>) -> NBinOp(a[0], BOMinus, a[2]))
         ]
     ];
 }
