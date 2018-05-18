@@ -182,8 +182,8 @@ class Grammar
     */
         "line" => [
             Pair(["TColon"], (a:Array<Any>) -> null),
-            Pair(["TIntConst", "TPlus", "TIntConst", "TColon"], (a:Array<Any>) -> NBinOp(a[0], BOPlus, a[2])),
-            Pair(["TIntConst", "TMinus", "TIntConst", "TColon"], (a:Array<Any>) -> NBinOp(a[0], BOMinus, a[2]))
+            Pair(["TIntConst", "TPlus", "TIntConst", "TColon"], (a:Array<Any>) -> NBinOp(NIntConst(a[0]), BOPlus, NIntConst(a[2]))),
+            Pair(["TIntConst", "TMinus", "TIntConst", "TColon"], (a:Array<Any>) -> NBinOp(NIntConst(a[0]), BOMinus, NIntConst(a[2])))
         ]
     ];
 }
